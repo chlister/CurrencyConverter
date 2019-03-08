@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">CurrencyConverter</string>
+    <string-array name="country_icons">
+        <item>@drawable/ic_dkk</item>
+        <item>@drawable/ic_eur</item>
+        <item>@drawable/ic_swe</item>
+    </string-array>
+    <string-array name="country_names">
+        <item>Danish Crowns</item>
+        <item>Euro</item>
+        <item>Swedish Crowns</item>
+    </string-array>
+</resources>
