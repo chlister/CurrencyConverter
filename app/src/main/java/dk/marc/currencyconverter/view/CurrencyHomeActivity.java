@@ -2,6 +2,7 @@ package dk.marc.currencyconverter.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.CursorIndexOutOfBoundsException;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.DrawableContainer;
 import android.graphics.drawable.DrawableWrapper;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import java.lang.reflect.Array;
 
 import dk.marc.currencyconverter.R;
+import dk.marc.currencyconverter.presenter.CurrencyHomePresenter;
 import dk.marc.currencyconverter.utility.IconNameSpinner;
 
 public class CurrencyHomeActivity extends AppCompatActivity {
@@ -28,13 +30,14 @@ public class CurrencyHomeActivity extends AppCompatActivity {
     private Button btnConvertCurrency;
     private String[] countryNames;
     private int[] countryFlags;
+    private CurrencyHomePresenter presenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_home);
-
+        presenter = new CurrencyHomePresenter();
         countryNames = getResources().getStringArray(R.array.country_names);
         countryFlags = getResources().getIntArray(R.array.country_icons); // TODO: make work
 //        countryFlags = new int[]{R.drawable.ic_dkk, R.drawable.ic_eur};
@@ -58,4 +61,7 @@ public class CurrencyHomeActivity extends AppCompatActivity {
     }
 
 
+    public void btnConvertCurrency(View view) {
+        presenter.getCurrencyExchange();
+    }
 }
