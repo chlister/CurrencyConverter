@@ -1,5 +1,10 @@
 package dk.marc.currencyconverter.presenter;
 
+import android.arch.lifecycle.ViewModelStore;
+import android.arch.lifecycle.ViewModelStoreOwner;
+import android.view.View;
+
+import dk.marc.currencyconverter.R;
 import dk.marc.currencyconverter.model.CurrencyMockObject;
 import dk.marc.currencyconverter.model.CurrencyObject;
 
@@ -9,9 +14,13 @@ public class CurrencyHomePresenter {
 
     }
 
-    public void getCurrencyExchange() {
+    public void getCurrencyExchange(float valueToExchange, String baseCurrency) {
         CurrencyMockObject mockObject = new CurrencyMockObject();
         currencyObject = mockObject.getMockCurrencyObject();
+        for (int i = 0; i < currencyObject.getRates().size(); i++) {
+            // TODO:
+            System.out.println(currencyObject.calculateExchange(baseCurrency, currencyObject.getRates()., valueToExchange));
+        }
         System.out.println(currencyObject.getBase());
         System.out.println(currencyObject.getDate());
 //        System.out.println(currencyObject.getRates());
