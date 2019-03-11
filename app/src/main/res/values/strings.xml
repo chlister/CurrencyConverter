@@ -10,4 +10,9 @@
         <item>Euro</item>
         <item>Swedish Crowns</item>
     </string-array>
+    <string-array name="country_code">
+        <item>DKK</item>
+        <item>EUR</item>
+        <item>SWE</item>
+    </string-array>
 </resources>
