@@ -1,6 +1,6 @@
-package dk.marc.currencyconverter.currency;
+package dk.marc.currencyconverter.currency.model;
 
-class Rate {
+public class Rate {
     private String base;
     private float rate;
 

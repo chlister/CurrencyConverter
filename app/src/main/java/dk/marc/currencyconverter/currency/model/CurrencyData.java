@@ -1,7 +1,6 @@
-package dk.marc.currencyconverter.currency;
+package dk.marc.currencyconverter.currency.model;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 

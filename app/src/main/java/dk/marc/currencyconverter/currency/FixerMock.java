@@ -2,11 +2,11 @@ package dk.marc.currencyconverter.currency;
 
 import com.google.gson.Gson;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+
+import dk.marc.currencyconverter.currency.model.CurrencyData;
+import dk.marc.currencyconverter.currency.model.Rate;
 
 public class FixerMock implements CurrencyDAO {
     //region JSON string
@@ -189,7 +189,7 @@ public class FixerMock implements CurrencyDAO {
     //endregion
 
     @Override
-    public List<Rate> getRates(String base) {
+    public List<Rate> getRates() {
         Gson g = new Gson();
         ArrayList<Rate> rates = new ArrayList<>();
         CurrencyData c = g.fromJson(currencyMock, CurrencyData.class);

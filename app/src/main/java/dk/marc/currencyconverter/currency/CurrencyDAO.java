@@ -2,7 +2,8 @@ package dk.marc.currencyconverter.currency;
 
 import java.util.List;
 
-public interface CurrencyDAO {
-    public List<Rate> getRates(String base);
+import dk.marc.currencyconverter.currency.model.Rate;
 
+public interface CurrencyDAO {
+    public List<Rate> getRates();
 }
