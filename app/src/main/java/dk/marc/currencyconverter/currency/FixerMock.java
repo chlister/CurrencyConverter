@@ -1,11 +1,15 @@
-package dk.marc.currencyconverter.model;
+package dk.marc.currencyconverter.currency;
 
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-public class CurrencyMockObject extends CurrencyObject {
-    //region JSON mock
+public class FixerMock implements CurrencyDAO {
+    //region JSON string
     private static final String currencyMock = "{" +
             "  \"success\":true," +
             "  \"timestamp\":1552157346," +
@@ -184,16 +188,19 @@ public class CurrencyMockObject extends CurrencyObject {
             "}";
     //endregion
 
-
-    public CurrencyMockObject() {
-
-    }
-
-    public CurrencyObject getMockCurrencyObject() {
-
+    @Override
+    public List<Rate> getRates(String base) {
         Gson g = new Gson();
-        CurrencyObject c = g.fromJson(currencyMock, CurrencyObject.class);
-        return c;
+        ArrayList<Rate> rates = new ArrayList<>();
+        CurrencyData c = g.fromJson(currencyMock, CurrencyData.class);
+        String[] countryCodes = (String[]) c.getRates().keySet().toArray();
+        Float[] exchangeRates = (Float[]) c.getRates().values().toArray();
+        for (int i = 0; i < c.getRates().size(); i++) {
+            rates.add(new Rate(countryCodes[i], exchangeRates[i]));
+            c.getRates().values();
+        }
+
+        return rates;
     }
 
 }
