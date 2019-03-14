@@ -1,4 +1,4 @@
-package dk.marc.currencyconverter.utility;
+package dk.marc.currencyconverter.customElements;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,10 +15,10 @@ import dk.marc.currencyconverter.R;
 
 public class IconNameSpinner extends ArrayAdapter {
 
-    String[] spinnerTitles;
-    int[] spinnerImages;
-    Context context;
-    TypedArray images;
+    private String[] spinnerTitles;
+    private int[] spinnerImages;
+    private Context context;
+    private TypedArray images;
 
     //region Getters&Setters
     public String[] getSpinnerTitles() {
