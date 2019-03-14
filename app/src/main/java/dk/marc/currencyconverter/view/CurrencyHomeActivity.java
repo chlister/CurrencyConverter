@@ -1,25 +1,17 @@
 package dk.marc.currencyconverter.view;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.database.CursorIndexOutOfBoundsException;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.DrawableContainer;
-import android.graphics.drawable.DrawableWrapper;
-import android.graphics.drawable.VectorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-
 import dk.marc.currencyconverter.R;
+import dk.marc.currencyconverter.currency.FixerAPI;
+import dk.marc.currencyconverter.currency.FixerMock;
 import dk.marc.currencyconverter.presenter.CurrencyHomePresenter;
 import dk.marc.currencyconverter.utility.IconNameSpinner;
 
@@ -38,11 +30,11 @@ public class CurrencyHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_home);
-        presenter = new CurrencyHomePresenter();
+        presenter = new CurrencyHomePresenter(new FixerMock());
         countryNames = getResources().getStringArray(R.array.country_names);
         countryFlags = getResources().getIntArray(R.array.country_icons);
         countryCodes = getResources().getStringArray(R.array.country_code);
-//        countryFlags = new int[]{R.drawable.ic_dkk, R.drawable.ic_eur};
+        numberInput = findViewById(R.id.textInputValue);
 
         // Find the spinner on the page
         countrySpinner = findViewById(R.id.countrySpinner);
@@ -64,8 +56,15 @@ public class CurrencyHomeActivity extends AppCompatActivity {
 
 
     public void btnConvertCurrency(View view) {
+        System.out.println("btnConverter --");
+        float inputValue = 0;
         String base = countryCodes[countrySpinner.getSelectedItemPosition()];
-        float inputValue = Integer.parseInt(numberInput.getText().toString());
+        System.out.println(base);
+
+        if (!numberInput.getText().toString().equals(""))
+            inputValue = Integer.parseInt(numberInput.getText().toString());
+
+        System.out.println(inputValue);
         presenter.getCurrencyExchange(inputValue, base);
     }
 }

@@ -13,6 +13,6 @@
     <string-array name="country_code">
         <item>DKK</item>
         <item>EUR</item>
-        <item>SWE</item>
+        <item>SEK</item>
     </string-array>
 </resources>

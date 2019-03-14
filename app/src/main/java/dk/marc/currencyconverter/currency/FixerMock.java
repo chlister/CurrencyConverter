@@ -193,8 +193,10 @@ public class FixerMock implements CurrencyDAO {
         Gson g = new Gson();
         ArrayList<Rate> rates = new ArrayList<>();
         CurrencyData c = g.fromJson(currencyMock, CurrencyData.class);
-        String[] countryCodes = (String[]) c.getRates().keySet().toArray();
-        Float[] exchangeRates = (Float[]) c.getRates().values().toArray();
+        String[] countryCodes = new String[c.getRates().keySet().size()];
+        c.getRates().keySet().toArray(countryCodes);
+        Float[] exchangeRates = new Float[c.getRates().values().size()];
+        c.getRates().values().toArray(exchangeRates);
         for (int i = 0; i < c.getRates().size(); i++) {
             rates.add(new Rate(countryCodes[i], exchangeRates[i]));
             c.getRates().values();

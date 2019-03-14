@@ -1,15 +1,40 @@
 package dk.marc.currencyconverter.presenter;
 
-import dk.marc.currencyconverter.model.CurrencyObject;
+import java.util.List;
+
+import dk.marc.currencyconverter.currency.CurrencyDAO;
+import dk.marc.currencyconverter.currency.model.CurrencyData;
+import dk.marc.currencyconverter.currency.model.Rate;
+import dk.marc.currencyconverter.utility.CurrencyConverter;
 
 public class CurrencyHomePresenter {
-    private CurrencyObject currencyObject;
-    public CurrencyHomePresenter() {
 
+    private List<Rate> rates;
+    private CurrencyDAO dao;
+
+    public CurrencyHomePresenter(CurrencyDAO dao) {
+        this.dao = dao;
     }
 
     public void getCurrencyExchange(float valueToExchange, String baseCurrency) {
+        if (rates == null)
+            rates = dao.getRates();
+        for (Rate r : rates
+        ) {
+            System.out.println(r.getBase() + " : " + r.getRate());
+        }
+        System.out.println("Value converted: ");
+        System.out.println("Value before: " + valueToExchange);
+        System.out.println("Value after: " + CurrencyConverter.ConvertFromBaseToTarget(findRate(baseCurrency).getRate(), findRate("EUR").getRate(),valueToExchange) );
 
+    }
+
+    private Rate findRate(String countryCode){
+        for (Rate rate : rates){
+            if (rate.getBase().equals(countryCode))
+                return rate;
+        }
+        return null;
     }
 
     // TODO: method for calling API
