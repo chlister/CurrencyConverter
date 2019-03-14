@@ -9,7 +9,7 @@ public class CurrencyData {
     private boolean success;
     private String base = "";
     private Date date = new Date();
-    private Map<String, Float> rates = new LinkedHashMap<String, Float>();
+    private Map<String, Float> rates = new LinkedHashMap<>();
 
     //region Getters & Setters
 
