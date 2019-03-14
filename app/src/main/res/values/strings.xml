@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">CurrencyConverter</string>
+    <string name="default_recycler_value">0</string>
+    <string name="input_value">Input value</string>
     <string-array name="country_icons">
         <item>@drawable/ic_dkk</item>
         <item>@drawable/ic_eur</item>
