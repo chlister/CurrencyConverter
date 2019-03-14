@@ -1,13 +1,13 @@
 package dk.marc.currencyconverter.presenter;
 
 import java.util.List;
-
 import dk.marc.currencyconverter.currency.CurrencyDAO;
+import dk.marc.currencyconverter.currency.model.CurrencyData;
 import dk.marc.currencyconverter.currency.model.Rate;
 import dk.marc.currencyconverter.utility.CurrencyConverter;
 
 public class CurrencyHomePresenter {
-
+private List<CurrencyData> mData;
     private List<Rate> rates;
     private CurrencyDAO dao;
 
@@ -24,12 +24,16 @@ public class CurrencyHomePresenter {
         }
         System.out.println("Value converted: ");
         System.out.println("Value before: " + valueToExchange);
-        System.out.println("Value after: " + CurrencyConverter.ConvertFromBaseToTarget(findRate(baseCurrency).getRate(), findRate("EUR").getRate(),valueToExchange) );
+        System.out.println("Value after: " +
+                CurrencyConverter.ConvertFromBaseToTarget(
+                        findRate(baseCurrency).getRate(),
+                        findRate("EUR").getRate(),
+                        valueToExchange));
 
     }
 
-    private Rate findRate(String countryCode){
-        for (Rate rate : rates){
+    private Rate findRate(String countryCode) {
+        for (Rate rate : rates) {
             if (rate.getBase().equals(countryCode))
                 return rate;
         }

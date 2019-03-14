@@ -2,6 +2,8 @@ package dk.marc.currencyconverter.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -9,8 +11,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
+
 import dk.marc.currencyconverter.R;
 import dk.marc.currencyconverter.currency.FixerMock;
+import dk.marc.currencyconverter.customElements.RecyclerAdapter;
 import dk.marc.currencyconverter.presenter.CurrencyHomePresenter;
 import dk.marc.currencyconverter.customElements.IconNameSpinner;
 
@@ -21,6 +26,9 @@ public class CurrencyHomeActivity extends AppCompatActivity {
     private String[] countryNames;
     private String[] countryCodes;
     private int[] countryFlags;
+    private RecyclerView recyclerView;
+    private RecyclerAdapter recyclerAdapter;
+    private RecyclerView.LayoutManager layoutManager;
     private CurrencyHomePresenter presenter;
 
 
@@ -33,6 +41,14 @@ public class CurrencyHomeActivity extends AppCompatActivity {
         countryFlags = getResources().getIntArray(R.array.country_icons);
         countryCodes = getResources().getStringArray(R.array.country_code);
         numberInput = findViewById(R.id.textInputValue);
+
+        // Create recycleview
+        recyclerView = findViewById(R.id.convertedCurrencyRecycler);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerAdapter = new RecyclerAdapter(Arrays.asList(countryCodes), countryFlags);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(recyclerAdapter);
 
         // Find the spinner on the page
         countrySpinner = findViewById(R.id.countrySpinner);
