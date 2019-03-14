@@ -3,7 +3,6 @@ package dk.marc.currencyconverter.presenter;
 import java.util.List;
 
 import dk.marc.currencyconverter.currency.CurrencyDAO;
-import dk.marc.currencyconverter.currency.model.CurrencyData;
 import dk.marc.currencyconverter.currency.model.Rate;
 import dk.marc.currencyconverter.utility.CurrencyConverter;
 
