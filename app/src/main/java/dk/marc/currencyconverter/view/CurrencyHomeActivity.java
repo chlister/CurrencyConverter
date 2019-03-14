@@ -10,16 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.marc.currencyconverter.R;
-import dk.marc.currencyconverter.currency.FixerAPI;
 import dk.marc.currencyconverter.currency.FixerMock;
 import dk.marc.currencyconverter.presenter.CurrencyHomePresenter;
-import dk.marc.currencyconverter.utility.IconNameSpinner;
+import dk.marc.currencyconverter.customElements.IconNameSpinner;
 
 public class CurrencyHomeActivity extends AppCompatActivity {
 
     private Spinner countrySpinner;
     private TextView numberInput;
-    private Button btnConvertCurrency;
     private String[] countryNames;
     private String[] countryCodes;
     private int[] countryFlags;
