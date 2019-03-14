@@ -17,8 +17,8 @@ public class IconNameSpinner extends ArrayAdapter {
 
     private String[] spinnerTitles;
     private int[] spinnerImages;
-    private Context context;
-    private TypedArray images;
+    Context context;
+    TypedArray images;
 
     //region Getters&Setters
     public String[] getSpinnerTitles() {
@@ -30,10 +30,10 @@ public class IconNameSpinner extends ArrayAdapter {
     }
     //endregion
 
-    public IconNameSpinner(@NonNull Context context, String[] titles, int[] images) {
+    public IconNameSpinner(@NonNull Context context, String[] titles, int[] spinnerImages) {
         super(context, R.layout.icon_spinner);
         spinnerTitles = titles;
-        spinnerImages = images;
+        this.spinnerImages = spinnerImages;
         this.context = context;
     }
 
@@ -50,7 +50,6 @@ public class IconNameSpinner extends ArrayAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.icon_spinner, parent, false);
             viewHolder.mFlag = convertView.findViewById(R.id.flagIcon);
-//            viewHolder.mFlag = convertView.findViewById(R.id.flagIcon);
             viewHolder.mName = convertView.findViewById(R.id.flagName);
             convertView.setTag(viewHolder);
         } else {
