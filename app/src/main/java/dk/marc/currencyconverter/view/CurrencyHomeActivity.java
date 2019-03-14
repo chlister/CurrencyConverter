@@ -12,14 +12,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.List;
 
 import dk.marc.currencyconverter.R;
 import dk.marc.currencyconverter.currency.FixerMock;
+import dk.marc.currencyconverter.currency.model.Rate;
 import dk.marc.currencyconverter.customElements.RecyclerAdapter;
 import dk.marc.currencyconverter.presenter.CurrencyHomePresenter;
 import dk.marc.currencyconverter.customElements.IconNameSpinner;
 
-public class CurrencyHomeActivity extends AppCompatActivity {
+public class CurrencyHomeActivity extends AppCompatActivity implements CurrencyHomePresenter.View {
 
     private Spinner countrySpinner;
     private TextView numberInput;
@@ -36,17 +38,17 @@ public class CurrencyHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_home);
-        presenter = new CurrencyHomePresenter(new FixerMock());
+        presenter = new CurrencyHomePresenter(new FixerMock(), this);
         countryNames = getResources().getStringArray(R.array.country_names);
         countryFlags = getResources().getIntArray(R.array.country_icons);
         countryCodes = getResources().getStringArray(R.array.country_code);
         numberInput = findViewById(R.id.textInputValue);
 
-        // Create recycleview
+        // Create RecyclerView
         recyclerView = findViewById(R.id.convertedCurrencyRecycler);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new RecyclerAdapter(Arrays.asList(countryCodes), countryFlags);
+        recyclerAdapter = new RecyclerAdapter(Arrays.asList(countryCodes), countryFlags, null);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(recyclerAdapter);
 
@@ -80,5 +82,15 @@ public class CurrencyHomeActivity extends AppCompatActivity {
 
         System.out.println(inputValue);
         presenter.getCurrencyExchange(inputValue, base);
+    }
+
+    @Override
+    public void onPropertyChanged() {
+
+    }
+
+    @Override
+    public void onRatesUpdated(List<Rate> rates) {
+
     }
 }

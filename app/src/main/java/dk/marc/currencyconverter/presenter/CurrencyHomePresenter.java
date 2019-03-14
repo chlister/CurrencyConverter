@@ -1,18 +1,21 @@
 package dk.marc.currencyconverter.presenter;
 
 import java.util.List;
+
 import dk.marc.currencyconverter.currency.CurrencyDAO;
 import dk.marc.currencyconverter.currency.model.CurrencyData;
 import dk.marc.currencyconverter.currency.model.Rate;
 import dk.marc.currencyconverter.utility.CurrencyConverter;
 
 public class CurrencyHomePresenter {
-private List<CurrencyData> mData;
+    private List<CurrencyData> mData;
+    private View view;
     private List<Rate> rates;
     private CurrencyDAO dao;
 
-    public CurrencyHomePresenter(CurrencyDAO dao) {
+    public CurrencyHomePresenter(CurrencyDAO dao, View view) {
         this.dao = dao;
+        this.view = view;
     }
 
     public void getCurrencyExchange(float valueToExchange, String baseCurrency) {
@@ -38,6 +41,20 @@ private List<CurrencyData> mData;
                 return rate;
         }
         return null;
+    }
+
+    public void onPropertyChanged() {
+
+    }
+
+    public void onRatesUpdated(List<Rate> rates) {
+        view.onRatesUpdated(rates);
+    }
+
+    public interface View {
+        void onPropertyChanged();
+
+        void onRatesUpdated(List<Rate> rates);
     }
 
     // TODO: method for calling API

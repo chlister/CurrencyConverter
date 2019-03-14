@@ -15,17 +15,19 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import dk.marc.currencyconverter.R;
+import dk.marc.currencyconverter.currency.model.Rate;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
     // The date i want to display in my list
     private List<String> mDataSet;
+    private List<Rate> mRates;
     private int[] mIcons;
     private TypedArray images;
 
-    public RecyclerAdapter(List<String> list, int[] icons) {
+    public RecyclerAdapter(List<String> list, int[] icons, List<Rate> rates) {
         mDataSet = list;
         mIcons = icons;
-
+        mRates = rates;
     }
 
     @NonNull
@@ -40,7 +42,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TextView textView = holder.cl.findViewById(R.id.currencyItem);
         ImageView imageView = holder.cl.findViewById(R.id.recycler_flagIcon);
+        TextView currencyVal = holder.cl.findViewById(R.id.convertedCurrencyRecycler);
         textView.setText(mDataSet.get(position));
+
         // When working with drawable resources we can get the position of the icons via TypedArray
         images = holder.cl.getResources().obtainTypedArray(R.array.country_icons);
         int key = images.getResourceId(position, -1);
