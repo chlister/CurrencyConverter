@@ -1,22 +1,38 @@
 package dk.marc.currencyconverter.presenter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dk.marc.currencyconverter.currency.CurrencyDAO;
-import dk.marc.currencyconverter.currency.model.CurrencyData;
 import dk.marc.currencyconverter.currency.model.Rate;
 import dk.marc.currencyconverter.utility.CurrencyConverter;
 
 public class CurrencyHomePresenter {
-    private List<CurrencyData> mData;
     private View view;
+    private String[] countryCodes;
     private List<Rate> rates;
     private CurrencyDAO dao;
 
-    public CurrencyHomePresenter(CurrencyDAO dao, View view) {
+    public List<Rate> getRates() {
+        System.out.println("--------------------------------------------------------------");
+        if (rates != null)
+            return rates;
+        else return dao.getRates();
+    }
+
+    private List<Rate> populateRates(){
+        List<Rate> r = new ArrayList<>();
+        // TODO: Find where country codes match
+
+        return null;
+    }
+
+    public CurrencyHomePresenter(CurrencyDAO dao, View view, String[] countryCodes) {
         this.dao = dao;
         this.view = view;
+        this.countryCodes = countryCodes;
     }
+
 
     public void getCurrencyExchange(float valueToExchange, String baseCurrency) {
         if (rates == null)
@@ -24,15 +40,13 @@ public class CurrencyHomePresenter {
         for (Rate r : rates
         ) {
             System.out.println(r.getBase() + " : " + r.getRate());
+            r.setValueExchanged(CurrencyConverter.ConvertFromBaseToTarget(
+                    r.getRate(),
+                    findRate(baseCurrency).getRate(),
+                    valueToExchange));
         }
-        System.out.println("Value converted: ");
-        System.out.println("Value before: " + valueToExchange);
-        System.out.println("Value after: " +
-                CurrencyConverter.ConvertFromBaseToTarget(
-                        findRate(baseCurrency).getRate(),
-                        findRate("EUR").getRate(),
-                        valueToExchange));
 
+        onRatesUpdated();
     }
 
     private Rate findRate(String countryCode) {
@@ -43,18 +57,14 @@ public class CurrencyHomePresenter {
         return null;
     }
 
-    public void onPropertyChanged() {
 
-    }
-
-    public void onRatesUpdated(List<Rate> rates) {
-        view.onRatesUpdated(rates);
+    public void onRatesUpdated() {
+        view.onRatesUpdated();
     }
 
     public interface View {
-        void onPropertyChanged();
 
-        void onRatesUpdated(List<Rate> rates);
+        void onRatesUpdated();
     }
 
     // TODO: method for calling API

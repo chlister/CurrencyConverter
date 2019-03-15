@@ -16,24 +16,12 @@ import dk.marc.currencyconverter.R;
 public class IconNameSpinner extends ArrayAdapter {
 
     private String[] spinnerTitles;
-    private int[] spinnerImages;
     Context context;
     TypedArray images;
 
-    //region Getters&Setters
-    public String[] getSpinnerTitles() {
-        return spinnerTitles;
-    }
-
-    public int[] getSpinnerImages() {
-        return spinnerImages;
-    }
-    //endregion
-
-    public IconNameSpinner(@NonNull Context context, String[] titles, int[] spinnerImages) {
+    public IconNameSpinner(@NonNull Context context, String[] titles) {
         super(context, R.layout.icon_spinner);
         spinnerTitles = titles;
-        this.spinnerImages = spinnerImages;
         this.context = context;
     }
 

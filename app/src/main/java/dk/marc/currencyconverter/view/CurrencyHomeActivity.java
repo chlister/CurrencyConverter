@@ -27,7 +27,6 @@ public class CurrencyHomeActivity extends AppCompatActivity implements CurrencyH
     private TextView numberInput;
     private String[] countryNames;
     private String[] countryCodes;
-    private int[] countryFlags;
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -40,21 +39,21 @@ public class CurrencyHomeActivity extends AppCompatActivity implements CurrencyH
         setContentView(R.layout.activity_currency_home);
         presenter = new CurrencyHomePresenter(new FixerMock(), this);
         countryNames = getResources().getStringArray(R.array.country_names);
-        countryFlags = getResources().getIntArray(R.array.country_icons);
         countryCodes = getResources().getStringArray(R.array.country_code);
         numberInput = findViewById(R.id.textInputValue);
-
+        System.out.println("All done ---------------- Starting create recycler view");
         // Create RecyclerView
         recyclerView = findViewById(R.id.convertedCurrencyRecycler);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerAdapter = new RecyclerAdapter(Arrays.asList(countryCodes), countryFlags, null);
+        recyclerAdapter = new RecyclerAdapter(presenter.getRates());
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(recyclerAdapter);
+        System.out.println("All done ---------------- Starting create spinner view");
 
         // Find the spinner on the page
         countrySpinner = findViewById(R.id.countrySpinner);
-        IconNameSpinner spinAdapter = new IconNameSpinner(this, countryNames, countryFlags);
+        IconNameSpinner spinAdapter = new IconNameSpinner(this, countryNames);
         countrySpinner.setAdapter(spinAdapter);
 
         countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -85,12 +84,7 @@ public class CurrencyHomeActivity extends AppCompatActivity implements CurrencyH
     }
 
     @Override
-    public void onPropertyChanged() {
-
-    }
-
-    @Override
-    public void onRatesUpdated(List<Rate> rates) {
-
+    public void onRatesUpdated() {
+        recyclerAdapter.notifyDataSetChanged();
     }
 }
