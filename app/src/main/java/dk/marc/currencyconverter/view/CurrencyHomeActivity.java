@@ -25,8 +25,8 @@ public class CurrencyHomeActivity extends AppCompatActivity implements CurrencyH
 
     private Spinner countrySpinner;
     private TextView numberInput;
-    private String[] countryNames;
-    private String[] countryCodes;
+    private String[] countryNames; // Data
+    private String[] countryCodes; // Data
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -37,9 +37,9 @@ public class CurrencyHomeActivity extends AppCompatActivity implements CurrencyH
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_home);
-        presenter = new CurrencyHomePresenter(new FixerMock(), this);
-        countryNames = getResources().getStringArray(R.array.country_names);
-        countryCodes = getResources().getStringArray(R.array.country_code);
+        presenter = new CurrencyHomePresenter(this);
+        countryNames = getResources().getStringArray(R.array.country_names); // TODO moved to presenter
+        countryCodes = getResources().getStringArray(R.array.country_code); // TODO moved to presenter
         numberInput = findViewById(R.id.textInputValue);
         System.out.println("All done ---------------- Starting create recycler view");
         // Create RecyclerView
@@ -53,7 +53,7 @@ public class CurrencyHomeActivity extends AppCompatActivity implements CurrencyH
 
         // Find the spinner on the page
         countrySpinner = findViewById(R.id.countrySpinner);
-        IconNameSpinner spinAdapter = new IconNameSpinner(this, countryNames);
+        IconNameSpinner spinAdapter = new IconNameSpinner(this, countryNames); // TODO countryNames moved to presenter
         countrySpinner.setAdapter(spinAdapter);
 
         countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -14,16 +14,21 @@ import java.util.List;
 
 import dk.marc.currencyconverter.currency.model.CurrencyData;
 import dk.marc.currencyconverter.currency.model.Rate;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class FixerAPI implements CurrencyDAO {
     private URL apiEndpoint;
     private Gson apiJsonData;
+    private OkHttpClient client;
 
     public FixerAPI() {
         try {
             // Hide API key for release
             apiEndpoint = new URL("http://data.fixer.io/api/latest?access_key=511e802e903882108a974da7cf58e1cb");
             apiJsonData = new Gson();
+            client = new OkHttpClient();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -32,7 +37,7 @@ public class FixerAPI implements CurrencyDAO {
     @Override
     public List<Rate> getRates() {
         try {
-            CurrencyData data = retrieveData();
+            CurrencyData data = retrieveDataUsingOkHttpClient();
             if (data != null) {
                 String[] countryCodes = new String[data.getRates().keySet().size()];
                 data.getRates().keySet().toArray(countryCodes);
@@ -53,6 +58,23 @@ public class FixerAPI implements CurrencyDAO {
         return null;
     }
 
+    private CurrencyData retrieveDataUsingOkHttpClient(){
+        Request request = new Request.Builder()
+                .url("http://data.fixer.io/api/latest?access_key=511e802e903882108a974da7cf58e1cb")
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String resp = response.body().string();
+            System.out.println(resp);
+            return apiJsonData.fromJson(resp, CurrencyData.class);
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private CurrencyData retrieveData() {
         HttpURLConnection con = null;
         try {
@@ -66,9 +88,9 @@ public class FixerAPI implements CurrencyDAO {
             while ((inputLine = br.readLine()) != null) {
                 sb.append(inputLine);
             }
-            br.close();
-//            con.disconnect();
             return apiJsonData.fromJson(sb.toString(), CurrencyData.class);
+//            br.close();
+//            con.disconnect();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e){

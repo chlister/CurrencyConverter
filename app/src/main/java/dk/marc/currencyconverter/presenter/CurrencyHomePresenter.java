@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.marc.currencyconverter.currency.CurrencyDAO;
+import dk.marc.currencyconverter.currency.FixerMock;
 import dk.marc.currencyconverter.currency.model.Rate;
 import dk.marc.currencyconverter.utility.CurrencyConverter;
 
@@ -27,8 +28,8 @@ public class CurrencyHomePresenter {
         return null;
     }
 
-    public CurrencyHomePresenter(CurrencyDAO dao, View view, String[] countryCodes) {
-        this.dao = dao;
+    public CurrencyHomePresenter(View view) {
+        this.dao = new FixerMock();
         this.view = view;
         this.countryCodes = countryCodes;
     }
