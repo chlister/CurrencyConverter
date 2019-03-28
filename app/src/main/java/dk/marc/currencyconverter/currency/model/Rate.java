@@ -3,7 +3,7 @@ package dk.marc.currencyconverter.currency.model;
 public class Rate {
     private String base;
     private float rate;
-    private float valueExchanged;
+    private float valueExchanged; // TODO: Get this out
 
     public float getValueExchanged() {
         return valueExchanged;

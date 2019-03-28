@@ -1,13 +1,13 @@
 package dk.marc.currencyconverter.presenter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
 
 import dk.marc.currencyconverter.currency.CurrencyDAO;
-import dk.marc.currencyconverter.currency.FixerAPI;
-import dk.marc.currencyconverter.currency.FixerMock;
+import dk.marc.currencyconverter.currency.FixerDb;
 import dk.marc.currencyconverter.currency.model.Rate;
 import dk.marc.currencyconverter.utility.CountryCodeFiller;
 import dk.marc.currencyconverter.utility.CurrencyConverter;
@@ -23,13 +23,13 @@ public class CurrencyExchangePresenter {
         return countryCodes;
     }
 
-    public CurrencyExchangePresenter(View view) {
+    public CurrencyExchangePresenter(View view, Context context) {
         this.view = view;
         countryCodes = CountryCodeFiller.getCountryCodes(); // TODO - Get codes from API
-        @SuppressLint("StaticFieldLeak") AsyncTask task = new AsyncTask() {
+         @SuppressLint("StaticFieldLeak") AsyncTask task = new AsyncTask() {
             @Override
             protected List<Rate> doInBackground(Object[] objects) {
-                dao = new FixerAPI();
+                dao = new FixerDb(context);
                 return dao.getRates();
             }
 

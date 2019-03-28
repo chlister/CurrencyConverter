@@ -26,7 +26,7 @@ public class CurrencyExchange extends AppCompatActivity implements CurrencyExcha
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_exhcange);
         // Init presenter
-        presenter = new CurrencyExchangePresenter(this);
+        presenter = new CurrencyExchangePresenter(this, this);
         outPutValue = findViewById(R.id.exchange_textView);
         inputValue = findViewById(R.id.exchange_editText);
         btnCurrencyExchange = findViewById(R.id.btn_convert_currency);
@@ -43,10 +43,14 @@ public class CurrencyExchange extends AppCompatActivity implements CurrencyExcha
     }
 
     public void exchangeCurrency(View view) {
-        float valueToExchange = Float.valueOf(inputValue.getText().toString());
-        presenter.calculateExchange(valueToExchange,
-                currencyFromSpinner.getSelectedItemPosition(),
-                currencyToSpinner.getSelectedItemPosition());
+        float valueToExchange;
+        if (!inputValue.getText().toString().equals("")) {
+            valueToExchange = Float.valueOf(inputValue.getText().toString());
+            presenter.calculateExchange(valueToExchange,
+                    currencyFromSpinner.getSelectedItemPosition(),
+                    currencyToSpinner.getSelectedItemPosition());
+
+        }
     }
 
     @Override
